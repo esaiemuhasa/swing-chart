@@ -424,6 +424,8 @@ public class CloudChartRender extends JComponent implements Printable{
 			g2.setStroke(mouseLineWidth);
 			if (chart.getType() == CloudType.STICK_CHART) {
 				for (int j = 0; j < cloud.getCloud().countPoints(); j++) {
+					if(cloud.getPoints()[j].getPoint().getY() == 0)
+						continue;
 					g2.setColor(chart.getBackgroundColor());
 					g2.fill(cloud.getPoints()[j].getShape());
 					
@@ -1031,6 +1033,9 @@ public class CloudChartRender extends JComponent implements Printable{
 		double limit = xlineAxis == null? (model.getYMin().getY() > 0? 0 : heightRender) : xlineAxis.getY1();
 		
 		for (int  i = 0; i < points.length; i++) {
+			if(points[i].getY() == 0)
+				continue;
+			
 			MaterialPoint point = normalize(points[i]);
 			
 			xs[i] = (int) point.getX();

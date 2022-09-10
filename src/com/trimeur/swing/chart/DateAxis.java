@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import com.trimeur.swing.chart.tools.Utility;
 
@@ -63,6 +64,7 @@ public class DateAxis extends DefaultAxis{
 	}
 
 	public void setFormater(DateFormat formater) {
+		Objects.requireNonNull(formater);
 		if(this.formater == formater)
 			return;
 		
@@ -83,5 +85,25 @@ public class DateAxis extends DefaultAxis{
 	 */
 	public DateFormat getFormater() {
 		return formater;
+	}
+	
+	/**
+	 * renvoie l'equivatent numerique de la date en param
+	 * @param date
+	 * @return
+	 */
+	public static double toAxisValue (Date date) {
+		Date middle = Utility.toMiddleTimestampOfDay(date);
+		Date toDay = Utility.toMiddleTimestampOfDay(new Date());
+		
+		if (middle.getTime() == toDay.getTime())
+			return 0;
+		
+		double value = (middle.getTime() - toDay.getTime());
+		value /= 1000d;
+		value /= 60d;
+		value /= 60d;
+		value /= 24d;
+		return value;
 	}
 }
