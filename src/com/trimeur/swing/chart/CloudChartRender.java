@@ -1033,9 +1033,6 @@ public class CloudChartRender extends JComponent implements Printable{
 		double limit = xlineAxis == null? (model.getYMin().getY() > 0? 0 : heightRender) : xlineAxis.getY1();
 		
 		for (int  i = 0; i < points.length; i++) {
-			if(points[i].getY() == 0)
-				continue;
-			
 			MaterialPoint point = normalize(points[i]);
 			
 			xs[i] = (int) point.getX();
