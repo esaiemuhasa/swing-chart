@@ -6,6 +6,7 @@ package com.trimeur.swing.chart.tools;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +46,10 @@ public class ChartTestFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		DefaultAxis xAxis = new DateAxis("Abs", "X", "");
+		DateAxis xAxis = new DateAxis("Abs", "X", "");
 		DefaultAxis yAxis = new DefaultAxis("Ord", "Y", "");
+		
+		xAxis.setFormater(new SimpleDateFormat("dd/MM/yyyy\nhh:mm:ss"));
 		
 		List<DefaultPointCloud> listCos = new ArrayList<>();
 		List<DefaultPointCloud> listSin = new ArrayList<>();

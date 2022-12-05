@@ -59,7 +59,7 @@ public class CloudChartRender extends JComponent implements Printable{
 	private double heightRender;
 	private float padding = 15;
 	private float paddingLeft = 60f;
-	private float paddingBottom = 30f;
+	private float paddingBottom = 60f;
 	
 	private double translateX;
 	private double translateY;
@@ -538,6 +538,8 @@ public class CloudChartRender extends JComponent implements Printable{
 		String xTxt = model.getXAxis().getLabelOf(mouseXvalue);
 		String yTxt = model.getYAxis().getLabelOf(mouseYvalue);
 		
+		xTxt = xTxt.replace("\n", " ");
+		
 		float 
 			p = 4,//padding
 			h = metrics.getHeight() + p * 2;//height
@@ -732,12 +734,18 @@ public class CloudChartRender extends JComponent implements Printable{
 				if(real == 0 || x < paddingLeft)
 					continue;
 				String txt = model.getXAxis().getLabelOf(real);
+				String [] txts = txt.split("\n");
 				if (gridXvisible) {		
 					g.setColor(gridColor);
 					g.drawLine(x, (int)padding/2, x, (int) (height - paddingBottom + padding/2));
 				}
 				g.setColor(lineAxisColor);
-				g.drawString(txt, 2 + x - metrics.stringWidth(txt) / 2, (float)(height - padding/2f));
+				if (txts.length == 2) {
+					g.drawString(txts[0], 2 + x - metrics.stringWidth(txts[0]) / 2, (float)(height - padding * 2));
+					g.drawString(txts[1], 2 + x - metrics.stringWidth(txts[1]) / 2, (float)(height - padding/2f));
+				} else {					
+					g.drawString(txt, 2 + x - metrics.stringWidth(txt) / 2, (float)(height - padding/2f));
+				}
 			}
 			
 			ration = Math.abs(xMax) / percentAxis;
@@ -750,12 +758,18 @@ public class CloudChartRender extends JComponent implements Printable{
 					continue;
 				
 				String txt = model.getXAxis().getLabelOf(real);
+				String[] txts = txt.split("\n");
 				if(gridXvisible) {			
 					g.setColor(gridColor);
 					g.drawLine(x, (int)padding/2, x, (int) (height - paddingBottom + padding/2));
 				}
 				g.setColor(lineAxisColor);
-				g.drawString(txt, 2 + x - metrics.stringWidth(txt) / 2, (float)(height - padding/2f));
+				if (txts.length == 2) {
+					g.drawString(txts[0], 2 + x - metrics.stringWidth(txts[0]) / 2, (float)(height - padding * 2));
+					g.drawString(txts[1], 2 + x - metrics.stringWidth(txts[1]) / 2, (float)(height - padding/2f));
+				} else {					
+					g.drawString(txt, 2 + x - metrics.stringWidth(txt) / 2, (float)(height - padding/2f));
+				}
 			}
 			
 			if (mouseLocation != null) {//lors du survol de la sourie
@@ -778,12 +792,18 @@ public class CloudChartRender extends JComponent implements Printable{
 				real += xMin;
 				
 				String txt = model.getXAxis().getLabelOf(real);
+				String[] txts = txt.split("\n");
 				if(gridXvisible) {			
 					g.setColor(gridColor);
 					g.drawLine(x, (int)padding/2, x, (int) (height - paddingBottom + padding/2));
 				}
 				g.setColor(lineAxisColor);
-				g.drawString(txt, 2 + x - metrics.stringWidth(txt) / 2, (float)(height - padding/2f));
+				if (txts.length == 2) {
+					g.drawString(txts[0], 2 + x - metrics.stringWidth(txts[0]) / 2, (float)(height - padding * 2));
+					g.drawString(txts[1], 2 + x - metrics.stringWidth(txts[1]) / 2, (float)(height - padding/2f));
+				} else {					
+					g.drawString(txt, 2 + x - metrics.stringWidth(txt) / 2, (float)(height - padding/2f));
+				}
 			}
 			
 			if (mouseLocation != null) {//lors du survol de la sourie
